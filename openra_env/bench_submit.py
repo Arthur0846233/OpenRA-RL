@@ -123,6 +123,7 @@ def main() -> None:
     parser.add_argument("--agent-name", default=None, help="Override agent name in the submission")
     parser.add_argument("--agent-type", default=None, help="Override agent type (Scripted/LLM/RL)")
     parser.add_argument("--agent-url", default=None, help="GitHub/project URL for the agent")
+    parser.add_argument("--hf-token", default=None, help="HuggingFace token for verified submissions")
     parser.add_argument("--replay", default=None, help="Path to .orarep replay file")
     parser.add_argument(
         "--bench-url",
@@ -148,6 +149,8 @@ def main() -> None:
         data["agent_type"] = args.agent_type
     if args.agent_url:
         data["agent_url"] = args.agent_url
+    if args.hf_token:
+        data["hf_token"] = args.hf_token
 
     print(f"Submitting {data.get('agent_name', '?')} vs {data.get('opponent', '?')}...")
     print(f"  Bench: {args.bench_url}")

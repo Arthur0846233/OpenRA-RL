@@ -1130,6 +1130,10 @@ async def run_agent(config, verbose: bool = False):
                 "replay_path": replay.get("path", ""),
                 "timestamp": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
             }
+            # Include HF token for verified bench submissions (not saved locally)
+            hf_token = config.agent.hf_token
+            if hf_token:
+                sub["hf_token"] = hf_token
             export_dir = Path.home() / ".openra-rl" / "bench-exports"
             export_dir.mkdir(parents=True, exist_ok=True)
             ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
