@@ -33,6 +33,7 @@ def build_bench_export(
     opponent: str = "Normal",
     agent_url: str = "",
     replay_path: str = "",
+    hf_token: str = "",
     export_dir: Optional[Path] = None,
 ) -> Dict[str, Any]:
     """Build and save a bench export JSON from a final observation.
@@ -45,6 +46,7 @@ def build_bench_export(
         opponent: Difficulty tier (Beginner/Easy/Medium/Normal/Hard).
         agent_url: Optional GitHub/project URL.
         replay_path: Optional path to .orarep replay file.
+        hf_token: Optional HuggingFace token for verified bench submissions.
         export_dir: Where to save the JSON (default: ~/.openra-rl/bench-exports/).
 
     Returns:
@@ -80,6 +82,8 @@ def build_bench_export(
         "replay_path": replay_path,
         "timestamp": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
     }
+    if hf_token:
+        sub["hf_token"] = hf_token
 
     # Save to disk
     if export_dir is None:

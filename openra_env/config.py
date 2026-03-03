@@ -150,6 +150,7 @@ class AgentConfig(BaseModel):
     agent_url: str = ""  # GitHub/project URL shown on leaderboard
     bench_upload: bool = True  # Auto-upload results to bench after each game
     bench_url: str = "https://openra-rl-openra-bench.hf.space"
+    hf_token: str = ""  # HuggingFace token for verified bench submissions
     system_prompt: str = ""  # deprecated — use prompts.system_prompt
     system_prompt_file: str = ""  # deprecated — use prompts.system_prompt_file
 
@@ -413,6 +414,7 @@ _ENV_VAR_MAP: list[tuple[str, str]] = [
     ("AGENT_URL", "agent.agent_url"),
     ("BENCH_UPLOAD", "agent.bench_upload"),
     ("BENCH_URL", "agent.bench_url"),
+    ("HF_TOKEN", "agent.hf_token"),
     ("SYSTEM_PROMPT_FILE", "agent.system_prompt_file"),
     # prompts
     ("SYSTEM_PROMPT_FILE", "prompts.system_prompt_file"),  # also maps to prompts.*
