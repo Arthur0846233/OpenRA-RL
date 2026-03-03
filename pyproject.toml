@@ -1,6 +1,6 @@
 [project]
 name = "openra-rl"
-version = "0.4.0"
+version = "0.4.1"
 description = "Play Red Alert with AI agents — LLMs, scripted bots, or RL"
 readme = "README.md"
 license = {text = "GPL-3.0"}
