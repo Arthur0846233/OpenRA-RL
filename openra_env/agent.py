@@ -937,15 +937,14 @@ async def run_agent(config, verbose: bool = False):
                         break
                     # ─── In-Game Checkpoint Evaluation ───────────
                     _cur_tick = briefing_state.get("tick", 0) if isinstance(briefing_state, dict) else 0
-                    if (event_tracker
-                            and CHECKPOINT_INTERVAL > 0
+                    if (CHECKPOINT_INTERVAL > 0
                             and _cur_tick - _last_checkpoint_tick >= CHECKPOINT_INTERVAL
                             and _cur_tick > 0):
                         _last_checkpoint_tick = _cur_tick
                         _mil = briefing_state.get("military", {})
                         _eco = briefing_state.get("economy", {})
                         _kd = _mil.get("kills_cost", 0) / max(_mil.get("deaths_cost", 1), 1)
-                        _timeline = event_tracker.format_timeline()
+                        _timeline = event_tracker.format_timeline() if event_tracker else ""
                         _checkpoint_msg = (
                             f"STRATEGY CHECKPOINT (t={_cur_tick}, ~{_cur_tick // 25}s)\n"
                             f"K/D value ratio: {_kd:.2f} | "

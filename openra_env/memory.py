@@ -124,12 +124,12 @@ class EventTracker:
             return
 
         if tool_name in ("build_unit", "build_structure", "build_and_place"):
-            if result.get("success"):
+            if "error" not in result:
                 item = args.get("unit_type") or args.get("building_type") or args.get("type", "?")
                 self.record_milestone(f"first_build_{item}", tick, f"First build/train: {item}")
 
         elif tool_name in ("attack_move", "attack_target"):
-            units_n = len(result.get("units_commanded", []))
+            units_n = len(result.get("commanded_units", []))
             if units_n > 0:
                 self.record_milestone("first_attack_order", tick, f"First attack order ({units_n} units)")
 
@@ -182,9 +182,13 @@ class GameMemory:
         self.memory_dir.mkdir(parents=True, exist_ok=True)
         if self.memory_file.exists():
             try:
-                data = json.loads(self.memory_file.read_text(encoding="utf-8"))
-                self.episodes = data.get("episodes", [])
-            except (json.JSONDecodeError, KeyError):
+                raw = self.memory_file.read_text(encoding="utf-8")
+                data = json.loads(raw)
+                if isinstance(data, dict):
+                    self.episodes = data.get("episodes", [])
+                else:
+                    self.episodes = []
+            except (json.JSONDecodeError, KeyError, OSError, TypeError, AttributeError):
                 self.episodes = []
 
     def save(self):
