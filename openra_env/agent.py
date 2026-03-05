@@ -1016,7 +1016,7 @@ async def run_agent(config, verbose: bool = False):
             if assistant_msg.get("content") and verbose:
                 if _checkpoint_just_fired:
                     print(f"\n  {'~' * 50}")
-                    print(f"  <<< CHECKPOINT RESPONSE >>>")
+                    print("  <<< CHECKPOINT RESPONSE >>>")
                     print(f"  {assistant_msg['content'][:800]}")
                     print(f"  {'~' * 50}")
                     _checkpoint_just_fired = False
@@ -1232,8 +1232,8 @@ async def run_agent(config, verbose: bool = False):
                     print(f"Memory saved: episode #{memory.episode_count} ({_result})")
                     if _reflection:
                         print(f"  Reflection: {_reflection[:150]}")
-                    for i, l in enumerate(_lessons, 1):
-                        print(f"  Lesson {i}: {l}")
+                    for i, lesson in enumerate(_lessons, 1):
+                        print(f"  Lesson {i}: {lesson}")
                 else:
                     # LLM unavailable — save stats without reflection
                     _events = event_tracker.summary() if event_tracker else []
