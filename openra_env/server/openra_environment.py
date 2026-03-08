@@ -6,8 +6,11 @@ computes rewards, and exposes MCP tools for LLM agents.
 """
 
 import asyncio
+import base64
+import io
 import logging
 import os
+import struct
 import sys
 import threading
 import time
@@ -186,10 +189,6 @@ def _render_minimap_png(obs: dict, cell_size: int = 6) -> str:
     OpenAI vision API, or an empty string if rendering is not possible
     (e.g. Pillow not installed, or spatial data unavailable).
     """
-    import base64
-    import io
-    import struct
-
     try:
         from PIL import Image
     except ImportError:

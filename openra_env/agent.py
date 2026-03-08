@@ -5,8 +5,11 @@ that implements the OpenAI Chat Completions API with tool calling.
 """
 
 import asyncio
+import base64
+import io
 import json
 import logging
+import struct
 import time
 
 from collections import defaultdict
@@ -280,12 +283,8 @@ def _render_minimap_png(obs: dict, cell_size: int = 6) -> str:
     """Render spatial tensor as a colored PNG for vision-capable LLMs.
 
     Returns a data-URI string ("data:image/png;base64,...") or "" if unavailable.
-    Requires Pillow: pip install "openra-rl[vision]"
+    Requires Pillow: pip install -e ".[vision]"
     """
-    import base64
-    import io
-    import struct
-
     try:
         from PIL import Image
     except ImportError:
